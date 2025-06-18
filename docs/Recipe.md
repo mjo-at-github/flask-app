@@ -112,7 +112,7 @@ For Windows i.e. PowerShell use:
 docker build -t flask-app .
 ```
 
-### **C. Create a Kubernetes Deployment (`deployment-local.yaml`)**
+### **C. Create a Kubernetes Deployment (locally hosted image) (`deployment-local.yaml`)**
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -132,6 +132,31 @@ spec:
       - name: flask-app
         image: flask-hello-world
         imagePullPolicy: Never  # Use local image
+        ports:
+        - containerPort: 5000
+```
+
+Alternatively for a remotely hosted i.e. registry hosted solution use the following deployment:
+
+### **C.1. Create a Kubernetes Deployment (remotely hosted image) (`deployment-remote.yaml`)**
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flask-app
+  template:
+    metadata:
+      labels:
+        app: flask-app
+    spec:
+      containers:
+      - name: flask-app
+        image: mjoatdocker/flask-app:v1  # Use remote image
         ports:
         - containerPort: 5000
 ```
