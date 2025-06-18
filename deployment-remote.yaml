@@ -14,6 +14,6 @@ spec:
     spec: 
       containers: 
       - name: flask-app 
-        image: mjoatdocker/flask-app:latest  # Use remote image 
+        image: mjoatdocker/flask-app:v1  # Use remote image 
         ports: 
         - containerPort: 5000
